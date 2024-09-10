@@ -63,12 +63,21 @@
         option {
             text-align: center;
         }
+        a {
+        text-decoration: none;
+        }
+        .icon {
+        margin: 0 25px;
+        width:30px;
+        height:30px;
+    }
 
     </style>
 </head>
 <body>
 
     <div class="container">
+        <p style="font-size: 11px; color: #ff0000; letter-spacing: 3px;">TopAnten</p>
         <h1>اپراتور خود را انتخاب کنید</h1>
         <p1>Profile:</p1>
         <form id="config-form">
@@ -78,13 +87,23 @@
             <option value="RighTel">Rightel</option>
             <option value="ApTel">APTel</option>
         </select>
+        <p style="font-size: 13px; color: #ffffff;">.جهت دانلود پروفایل روی دکمه زیر کلیک کنید</p>
         <button onclick="downloadConfig()">Download Profile!</button>
     </form> 
     <hr />
-        <p style="font-size: 15px; color: #ffffff;">برای دانلود شورتکات روی دکمه زیر کلیک کنید.</p>
-        <button onclick="downloadShortcuts()">Download Shortcuts!</button>
+        <p style="font-size: 13px; color: #ffffff;">.جهت دانلود شورتکات روی دکمه زیر کلیک کنید</p>
+        <button onclick="downloadShortcuts()">Shortcuts!</button>
+        <br /><hr /><br /><br />
+        <a href="https://t.me/TopAntenBot" target="_blank">
+            <img src="tel.png" alt="Telegram" class="icon">
+        </a>
+        <a href="https://x.com/TopAnten" target="_blank">
+            <img src="x.png" alt="Twitter" class="icon">
+        </a>
+        <a href="https://github.com/TopAnten" target="_blank">
+            <img src="github.png" alt="GitHub" class="icon">
+        </a>
     </div>
-
     <script>
         /*function downloadConfig() {
             const link = document.createElement('a');
