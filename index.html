@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TopAnten</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('1.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            background: #212121;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        select, button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 10px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        select {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #000;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #ffffff; 
+            color: #000000;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #f0f0f0;
+        }
+
+        button:active {
+            background-color: #e0e0e0;
+        }
+
+        option {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>اپراتور خود را انتخاب کنید</h1>
+        <p1>Profile:</p1>
+        <form id="config-form">
+        <select id="apn">
+            <option value="mcinet">IR-MCI</option>
+            <option value="mtnirancell">Irancell</option>
+            <option value="RighTel">Rightel</option>
+            <option value="ApTel">APTel</option>
+        </select>
+        <button onclick="downloadConfig()">Download Profile!</button>
+    </form> 
+    <hr />
+        <p style="font-size: 15px; color: #ffffff;">برای دانلود شورتکات روی دکمه زیر کلیک کنید.</p>
+        <button onclick="downloadShortcuts()">Download Shortcuts!</button>
+    </div>
+
+    <script>
+        /*function downloadConfig() {
+            const link = document.createElement('a');
+            link.href = 'Test.mobileconfig'; // جایگزین آدرس واقعی فایل
+            link.download = 'Test.mobileconfig';
+            link.click();
+        } */
+
+
+        const configForm = document.getElementById('config-form');
+
+    function makeuuid() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    function make(event) {
+      event.preventDefault();
+
+      const apn = document.getElementById('apn').value;
+
+      const config = `<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>ConsentText</key>
+		<dict>
+			<key>default</key>
+			<string>برای دریافت شورتکات اختصاصی به ربات تلگرامی : 
+@TopAntenBot
+مراجعه کنید.</string>
+		</dict>
+		<key>PayloadContent</key>
+		<array>
+			<dict>
+				<key>APNs</key>
+				<array>
+					<dict>
+						<key>AllowedProtocolMask</key>
+						<integer>3</integer>
+						<key>AllowedProtocolMaskInDomesticRoaming</key>
+						<integer>3</integer>
+						<key>AllowedProtocolMaskInRoaming</key>
+						<integer>3</integer>
+						<key>AuthenticationType</key>
+						<string>PAP</string>
+						<key>DefaultProtocolMask</key>
+						<integer>3</integer>
+						<key>EnableXLAT464</key>
+						<true />
+						<key>Name</key>
+						<string>${apn}</string>
+					</dict>
+				</array>
+				<key>AttachAPN</key>
+				<dict>
+					<key>AllowedProtocolMask</key>
+					<integer>3</integer>
+					<key>AuthenticationType</key>
+					<string>PAP</string>
+					<key>Name</key>
+					<string>${apn}</string>
+				</dict>
+				<key>PayloadDisplayName</key>
+				<string>Cellular</string>
+				<key>PayloadIdentifier</key>
+				<string>com.apple.cellular.${makeuuid()}</string>
+				<key>PayloadType</key>
+				<string>com.apple.cellular</string>
+				<key>PayloadUUID</key>
+				<string>${makeuuid()}</string>
+				<key>PayloadVersion</key>
+				<integer>1</integer>
+			</dict>
+		</array>
+		<key>PayloadDescription</key>
+		<string>TopAnten:
+Twitter : @TopAnten
+Tg Bot : @TopAntenBot
+این پروفایل کاملا رایگان می باشد
+</string>
+		<key>PayloadDisplayName</key>
+		<string>TopAnten</string>
+		<key>PayloadIdentifier</key>
+		<string>${makeuuid()}</string>
+		<key>PayloadOrganization</key>
+		<string>https://TopAnten.github.io</string>
+		<key>PayloadType</key>
+		<string>Configuration</string>
+		<key>PayloadUUID</key>
+		<string>${makeuuid()}</string>
+		<key>PayloadVersion</key>
+		<integer>1</integer>
+	</dict>
+</plist>
+`;
+
+      const TopAnten = new Blob([config], { type: 'application/xml' });
+      const dl = document.createElement('a');
+      dl.href = URL.createObjectURL(TopAnten);
+      dl.download = 'TopAnten.mobileconfig';
+      dl.click();
+      setTimeout(() => {
+          URL.revokeObjectURL(dl.href);
+      }, 1000);
+    }
+
+    configForm.addEventListener('submit', make);
+    </script>
+
+</body>
+</html>
