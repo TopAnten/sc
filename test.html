@@ -1,1 +1,112 @@
-test
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>انتخاب اپراتور</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(138,43,226,0.6)), 
+                        url('/mnt/data/F9422FBA-A731-4620-84CD-38579A67798A.jpeg') no-repeat center center/cover;
+            background-blend-mode: overlay;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        select, button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 10px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        select {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #000;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button:active {
+            background-color: #3e8e41;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 10px;
+            }
+
+            select, button {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 100%;
+                padding: 5px;
+            }
+
+            select, button {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>اپراتور خود را انتخاب کنید</h1>
+        <select id="operator">
+            <option value="mci">MCI</option>
+            <option value="irancell">Irancell</option>
+            <option value="rightel">Rightel</option>
+        </select>
+        <button onclick="downloadConfig()">Generate</button>
+    </div>
+
+    <script>
+        function downloadConfig() {
+            // ساختن لینک دانلود
+            const link = document.createElement('a');
+            link.href = 'Test.mobileconfig'; // جایگزین آدرس واقعی فایل
+            link.download = 'Test.mobileconfig';
+            link.click();
+        }
+    </script>
+
+</body>
+</html>
